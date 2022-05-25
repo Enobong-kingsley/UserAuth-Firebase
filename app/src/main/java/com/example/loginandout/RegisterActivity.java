@@ -24,7 +24,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -74,6 +78,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String textConfirmPwd = editTextRegisterConfirmPwd.getText().toString();
                 String textGender; //can not obtain the value before verifying if any button is selected r not
 
+                // validating user
+                String mobileRegex ="[6-9][0-9]{9}";
+                Matcher mobileMatcher;
+                Pattern mobileParttern = Pattern.compile(mobileRegex);
+                mobileMatcher = mobileParttern.matcher(textMobile);
+
                 if (TextUtils.isEmpty(textFullName)){
                     Toast.makeText(RegisterActivity.this, "please enter full name", Toast.LENGTH_SHORT).show();
                     editTextRegisterFullName.setError("Full Name is required");
@@ -102,7 +112,13 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "please re-enter your mobile no.", Toast.LENGTH_SHORT).show();
                     editTextRegisterMobile.setError("Mobile No. should be 10 digits");
                     editTextRegisterMobile.requestFocus();
-                }else if (TextUtils.isEmpty(textPwd)){
+                }else if (!mobileMatcher.find()){
+                    Toast.makeText(RegisterActivity.this, "please re-enter your mobile no.", Toast.LENGTH_SHORT).show();
+                    editTextRegisterMobile.setError("Mobile No. is not valid");
+                    editTextRegisterMobile.requestFocus();
+                }
+
+                else if (TextUtils.isEmpty(textPwd)){
                     Toast.makeText(RegisterActivity.this, "please enter your password.", Toast.LENGTH_SHORT).show();
                     editTextRegisterPwd.setError("Password is required");
                     editTextRegisterPwd.requestFocus();
@@ -136,31 +152,69 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(String textFullName, String textEmail, String textDoB, String textGender, String textMobile, String textPwd) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(textEmail,textPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+
+            //create
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+
                     Toast.makeText(RegisterActivity.this,"User registered Successfully",Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
 
+                    //update display name of user
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+                    firebaseUser.updateProfile(profileChangeRequest);
+
                     //Enter user data into the firebase realtime database
                     //this is the same class that will be used to read and write user details
-                   // ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(textFullName,textDoB,textGender,textMobile);
+                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(textDoB,textGender,textMobile);
 
-                    // sending verification email
-                    firebaseUser.sendEmailVerification();
 
-//                    //open user profile after success
-//                    Intent intent = new Intent(RegisterActivity.this, UserProfileActivity.class);
-//                    // to prevent user from returning back to register activity on pressing back button after registration
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
-//                    finish(); // to close activity
+                   // DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("https://console.firebase.google.com/u/0/project/fir-login-16f99/database/fir-login-16f99-default-rtdb/data/~2F").child("Registered Users");
+                    // Extracting reference from user database for "Registered User"
+                    //DatabaseReference referenceProfile = FirebaseDatabase.getInstance("https://console.firebase.google.com/u/0/project/fir-login-16f99/database/fir-login-16f99-default-rtdb/data/~2F").getReference().child("Registered Users");
+
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+//                    Log.e(TAG, String.valueOf(FirebaseDatabase.getInstance()));
+
+
+                    referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful()){
+
+                                // sending verification email
+                                firebaseUser.sendEmailVerification();
+
+                                Toast.makeText(RegisterActivity.this,"User registered Successfully, Please verify your email"
+                                        ,Toast.LENGTH_SHORT).show();
+
+
+//                                //open user profile after success
+//                                Intent intent = new Intent(RegisterActivity.this, UserProfileActivity.class);
+//                                // to prevent user from returning back to register activity on pressing back button after registration
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                                        | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
+//                                finish(); // to close activity
+                            }else {
+
+                                Toast.makeText(RegisterActivity.this,"User registered Failed, Please try again"
+                                        ,Toast.LENGTH_SHORT).show();
+                            }
+                            // when user is successfully logged in hide progress bar or failed
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
                 }else{
                     try {
                         throw task.getException();
                     }catch (FirebaseAuthWeakPasswordException e){
-                        editTextRegisterPwd.setError("Yur password is too weak, kindly use a mix of alphabets. numbers and special characters");
+                        editTextRegisterPwd.setError("Your password is too weak, kindly use a mix of alphabets. numbers and special characters");
                         editTextRegisterPwd.requestFocus();
                     }catch (FirebaseAuthInvalidCredentialsException e){
                         editTextRegisterPwd.setError("Your email is invalid oor already in use. kindly register.");
@@ -172,6 +226,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.e(TAG, e.getMessage());
                         Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                    // when user is successfully logged in hide progress bar or failed
                     progressBar.setVisibility(View.GONE);
                 }
             }

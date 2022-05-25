@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "165191259958",
+    "firebase_url": "https://fir-login-16f99-default-rtdb.firebaseio.com",
     "project_id": "fir-login-16f99",
     "storage_bucket": "fir-login-16f99.appspot.com"
   },
