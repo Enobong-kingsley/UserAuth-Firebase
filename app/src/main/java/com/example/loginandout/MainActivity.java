@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         // set Title
         getSupportActionBar().setTitle("Firebase App");
 
-        /*//using intent to open login Activity
+        //using intent to open login Activity
         Button buttonLogin = findViewById(R.id.button_login);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         //using intent to open Register Activity
         Button buttonRegister = findViewById(R.id.button_register);

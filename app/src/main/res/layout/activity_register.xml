@@ -87,8 +87,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_register_dob"
             android:background="@drawable/border"
-            android:hint="Enter date of birth (dd/mm/yyyy)*"
+            android:hint="Select date of birth (dd/mm/yyyy)*"
             android:inputType="date"
+            android:focusable="false"
             android:padding="6dp"
             android:textSize="16sp" />
 
