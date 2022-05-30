@@ -164,9 +164,10 @@ public class UploadProfilePiActiviity extends AppCompatActivity {
             startActivity(getIntent());
             finish();
             overridePendingTransition(0,0);
-//        }else if (id == R.id.menu_update_profile){
-//            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileActivity.class);
-//            startActivity(intent);
+        }else if (id == R.id.menu_update_profile){
+            Intent intent = new Intent(UploadProfilePiActiviity.this,UpdateProfileActivity.class);
+            startActivity(intent);
+            finish();
 //        }else if (id == R.id.menu_update_email){
 //            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileEmailActivity.class);
 //            startActivity(intent);

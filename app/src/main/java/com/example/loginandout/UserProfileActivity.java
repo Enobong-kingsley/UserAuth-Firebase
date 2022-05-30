@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -126,6 +128,14 @@ public class UserProfileActivity extends AppCompatActivity {
                     textViewDob.setText(doB);
                     textViewGender.setText(gender);
                     textViewMobile.setText(mobile);
+
+                    // set user dp (after user has upload)
+                    Uri uri = firebaseUser.getPhotoUrl();
+
+                    // ImageView setImageUrl() should not be used with regular Uri. So we are using Picasso
+                    Picasso.with(UserProfileActivity.this).load(uri).into(imageView);
+                }else {
+                    Toast.makeText(UserProfileActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -155,9 +165,9 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(getIntent());
             finish();
             overridePendingTransition(0,0);
-//        }else if (id == R.id.menu_update_profile){
-//            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileActivity.class);
-//            startActivity(intent);
+        }else if (id == R.id.menu_update_profile){
+            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileActivity.class);
+            startActivity(intent);
 //        }else if (id == R.id.menu_update_email){
 //            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileEmailActivity.class);
 //            startActivity(intent);

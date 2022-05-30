@@ -33,12 +33,13 @@
             android:backgroundTint="@color/teal_200"/>
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
             android:id="@+id/imageView_profile_dp"
-            android:background="@drawable/border"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:layout_below="@id/upload_pic_choose_button"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:scaleType="centerCrop" />
 
         <Button
             android:layout_width="match_parent"
