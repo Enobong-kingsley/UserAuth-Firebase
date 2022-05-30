@@ -5,10 +5,13 @@
       <map>
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/drawable/border.xml" value="0.10648148148148148" />
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/drawable/item_bg.xml" value="0.18888888888888888" />
+        <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_upload_profile_pi_activiity.xml" value="0.1" />
         <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/layout/activity_user_profile.xml" value="0.1" />
+        <entry key="..\:/Users/enobo/AndroidStudioProjects/LoginAndOut/app/src/main/res/menu/common_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
