@@ -75,16 +75,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
-//        Button buttonUpdateEmail = findViewById(R.id.button_update_profile_email);
-//        buttonUpdateEmail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(UpdateProfileActivity.this,UpdateEmailActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
-  //  }
+        Button buttonUpdateEmail = findViewById(R.id.button_update_profile_email);
+        buttonUpdateEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UpdateProfileActivity.this,UpdateEmailActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+   // }
         //setting up datepicker on EditText
         editTextUpdateDoB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,12 +275,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(UpdateProfileActivity.this,UpdateProfileActivity.class);
             startActivity(intent);
             finish();
-//        }else if (id == R.id.menu_update_email){
-//            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileEmailActivity.class);
-//            startActivity(intent);
-//        }else if (id == R.id.menu_settings){
-//            Toast.makeText(UserProfileActivity.this, "Menu Settings", Toast.LENGTH_SHORT).show();
-//        }else if (id == R.id.menu_change_password){
+        }else if (id == R.id.menu_update_email){
+            Intent intent = new Intent(UpdateProfileActivity.this,UpdateEmailActivity.class);
+            startActivity(intent);
+            finish();
+      //  }else if (id == R.id.menu_settings){
+      //      Toast.makeText(UserProfileActivity.this, "Menu Settings", Toast.LENGTH_SHORT).show();
+       // }else if (id == R.id.menu_change_password){
 //            Intent intent = new Intent(UserProfileActivity.this,ChangePasswordActivity.class);
 //            startActivity(intent);
 //        }else if (id == R.id.menu_delete_profile){

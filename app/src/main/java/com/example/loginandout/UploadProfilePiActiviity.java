@@ -168,9 +168,10 @@ public class UploadProfilePiActiviity extends AppCompatActivity {
             Intent intent = new Intent(UploadProfilePiActiviity.this,UpdateProfileActivity.class);
             startActivity(intent);
             finish();
-//        }else if (id == R.id.menu_update_email){
-//            Intent intent = new Intent(UserProfileActivity.this,UpdateProfileEmailActivity.class);
-//            startActivity(intent);
+        }else if (id == R.id.menu_update_email){
+            Intent intent = new Intent(UploadProfilePiActiviity.this,UpdateEmailActivity.class);
+            startActivity(intent);
+            finish();
 //        }else if (id == R.id.menu_settings){
 //            Toast.makeText(UserProfileActivity.this, "Menu Settings", Toast.LENGTH_SHORT).show();
 //        }else if (id == R.id.menu_change_password){
