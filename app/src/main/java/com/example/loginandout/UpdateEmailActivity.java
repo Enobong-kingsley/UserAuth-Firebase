@@ -190,14 +190,16 @@ public class UpdateEmailActivity extends AppCompatActivity {
             Intent intent = new Intent(UpdateEmailActivity.this,UpdateEmailActivity.class);
             startActivity(intent);
             finish();
-            //  }else if (id == R.id.menu_settings){
-            //      Toast.makeText(UserProfileActivity.this, "Menu Settings", Toast.LENGTH_SHORT).show();
-            // }else if (id == R.id.menu_change_password){
-//            Intent intent = new Intent(UserProfileActivity.this,ChangePasswordActivity.class);
-//            startActivity(intent);
-//        }else if (id == R.id.menu_delete_profile){
-//            Intent intent = new Intent(UserProfileActivity.this,MenuDeleteProfile.class);
-//            startActivity(intent);
+              }else if (id == R.id.menu_settings){
+                  Toast.makeText(UpdateEmailActivity.this, "Menu Settings", Toast.LENGTH_SHORT).show();
+             }else if (id == R.id.menu_change_password){
+            Intent intent = new Intent(UpdateEmailActivity.this,ChangePasswordActivity.class);
+            startActivity(intent);
+            finish();
+        }else if (id == R.id.menu_delete_profile){
+            Intent intent = new Intent(UpdateEmailActivity.this,DeleteProfileActivity.class);
+            startActivity(intent);
+            finish();
         }else if (id == R.id.menu_logout){
             authProfile.signOut();
             Toast.makeText(UpdateEmailActivity.this, "Logged Out", Toast.LENGTH_LONG).show();
@@ -212,8 +214,6 @@ public class UpdateEmailActivity extends AppCompatActivity {
             Toast.makeText(UpdateEmailActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 }
